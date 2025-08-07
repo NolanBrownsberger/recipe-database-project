@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS recipe_db;
+USE recipe_db;
+
 -- Drop tables if they already exist
 DROP TABLE IF EXISTS RECIPE_STEP;
 DROP TABLE IF EXISTS RECIPE_INGREDIENT;
