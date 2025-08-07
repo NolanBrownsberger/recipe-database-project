@@ -1,0 +1,8 @@
+# Node.js dependecies
+node_modules/
+
+#Environment variables file
+.env
+
+# VS Code settings folder
+.vscode/
