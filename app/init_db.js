@@ -16,8 +16,8 @@ connection.connect(err => {
   }
   console.log('Connected to MySQL server.');
 
-  const schema = fs.readFileSync('../mysql/schema.sql', 'utf8');
-  const seed = fs.readFileSync('../mysql/seed.sql', 'utf8');
+  const schema = fs.readFileSync('./mysql/schema.sql', 'utf8');
+  const seed = fs.readFileSync('./mysql/seed.sql', 'utf8');
 
   connection.query(schema, (err) => {
     if (err) throw err;
