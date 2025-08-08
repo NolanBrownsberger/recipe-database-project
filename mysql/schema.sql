@@ -31,7 +31,7 @@ CREATE TABLE RECIPE_INGREDIENT (
     recipe_id INT,
     name VARCHAR(100) NOT NULL,
     measurement VARCHAR(50),
-    quantity FLOAT,
+    quantity VARCHAR(50),
     FOREIGN KEY (recipe_id) REFERENCES RECIPE(recipe_id)
         ON DELETE CASCADE
 );

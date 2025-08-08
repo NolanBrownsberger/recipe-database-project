@@ -101,12 +101,19 @@ async function deleteRecipe(user) {
     value: r.recipe_id
   }));
 
+  choices.push({name: 'Cancel', value: null});
+
   const { recipeId } = await inquirer.prompt({
     type: 'list',
     name: 'recipeId',
     message: 'Which recipe would you like to delete?',
     choices
   });
+
+  if (recipeId === null) {
+    console.log("Deletion cancelled.");
+    return;
+  }
 
   await recipeModel.deleteRecipe(recipeId);
   console.log("Recipe deleted.");
