@@ -1,5 +1,10 @@
 // app/index.js
 const { loginOrRegister } = require('./controllers/authController');
+const {
+  viewAllRecipes,
+  addRecipe,
+  deleteRecipe
+} = require('./controllers/recipeController');
 const inquirer = require('inquirer');
 
 (async function main() {
@@ -11,13 +16,23 @@ const inquirer = require('inquirer');
       type: 'list',
       name: 'action',
       message: 'What do you want to do?',
-      choices: ['View Recipes', 'Add Recipe', 'Edit Recipe', 'Delete Recipe', 'Logout']
+      choices: ['View Recipes', 'Add Recipe', 'Delete Recipe', 'Logout']
     });
 
-    if (action === 'Logout') {
-      console.log('Goodbye!');
-      break;
+    switch (action) {
+      case 'View Recipes':
+        await viewAllRecipes();
+        break;
+      case 'Add Recipe':
+        await addRecipe(user);
+        break;
+      case 'Delete Recipe':
+        await deleteRecipe();
+        break;
+      case 'Logout':
+        console.log('Goodbye!');
+        running = false;
+        break;
     }
-
   }
 })();
