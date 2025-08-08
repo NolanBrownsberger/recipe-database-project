@@ -48,8 +48,16 @@ async function addRecipe(user) {
     const { name, measurement, quantity } = await inquirer.prompt([
       { name: 'name', message: 'Ingredient name:' },
       { name: 'measurement', message: 'Measurement (e.g., cups, grams):' },
-      { name: 'quantity', message: 'Quantity:' }
+      { 
+        name: 'quantity', 
+        message: 'Quantity:',
+        validate: input => {
+          const num = parseFloat(input);
+          return !isNaN(num) && num > 0 ? true : 'Please enter a valid number';
+        },
+      }
     ]);
+
     ingredients.push({ name, measurement, quantity: parseFloat(quantity) });
 
     const { more } = await inquirer.prompt({
@@ -78,8 +86,7 @@ async function addRecipe(user) {
     if (!more) break;
   }
 
-  const recipeId = await recipeModel.createRecipe(user.user_id, title, description, ingredients, steps);
-  console.log(`\nRecipe added with ID ${recipeId}\n`);
+  console.log(`\nRecipe added\n`);
 }
 
 async function deleteRecipe(user) {
