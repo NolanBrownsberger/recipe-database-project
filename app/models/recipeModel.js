@@ -2,7 +2,7 @@ const db = require('./db');
 
 async function getAllRecipes() {
   const [rows] = await db.query(`
-    SELECT r.recipe_id, r.title, r.description, u.username
+    SELECT r.recipe_id, r.title, r.description, r.user_id, u.username
     FROM RECIPE r
     JOIN USER u ON r.user_id = u.user_id
   `);

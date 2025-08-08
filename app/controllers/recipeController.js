@@ -82,17 +82,24 @@ async function addRecipe(user) {
   console.log(`\nRecipe added with ID ${recipeId}\n`);
 }
 
-async function deleteRecipe() {
+async function deleteRecipe(user) {
   const recipes = await recipeModel.getAllRecipes();
-  const choices = recipes.map(r => ({
-    name: `${r.title} (by ${r.username})`,
-    value: r.recipe_id
-  }));
 
-  if (choices.length === 0) {
+  // Filter based on admin status
+  const filteredRecipes = user.is_admin
+    ? recipes
+    : recipes.filter(r => r.user_id === user.user_id);
+
+  if (filteredRecipes.length === 0) {
     console.log("No recipes available to delete.");
     return;
   }
+
+  // Build choices
+  const choices = filteredRecipes.map(r => ({
+    name: `${r.title} (by ${r.username})`,
+    value: r.recipe_id
+  }));
 
   const { recipeId } = await inquirer.prompt({
     type: 'list',

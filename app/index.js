@@ -7,11 +7,13 @@ const {
 } = require('./controllers/recipeController');
 const inquirer = require('inquirer');
 
+
 (async function main() {
   const user = await loginOrRegister();
 
+  let running = true
   // Once logged in, show options
-  while (true) {
+  while (running) {
     const { action } = await inquirer.prompt({
       type: 'list',
       name: 'action',
@@ -27,7 +29,7 @@ const inquirer = require('inquirer');
         await addRecipe(user);
         break;
       case 'Delete Recipe':
-        await deleteRecipe();
+        await deleteRecipe(user);
         break;
       case 'Logout':
         console.log('Goodbye!');
@@ -35,4 +37,6 @@ const inquirer = require('inquirer');
         break;
     }
   }
+
+  process.exit(0);
 })();
